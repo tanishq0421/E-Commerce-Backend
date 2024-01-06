@@ -1,12 +1,15 @@
-import { APIGatewayProxyCallbackV2, APIGatewayProxyEventV2 } from "aws-lambda";
+import { APIGatewayProxyEventV2 } from "aws-lambda";
+import { container } from "tsyringe";
 import { UserService } from "./../service/userService";
-import { ErrorResponse } from "app/utility/response";
+import { ErrorResponse } from "./../utility/response";
+import middy from "@middy/core";
+import jsonBodyParser from "@middy/http-json-body-parser";
 
-const service = new UserService();
+const service = container.resolve(UserService);
 
-export const Signup = async(event : APIGatewayProxyEventV2) => {
+export const Signup = middy((event : APIGatewayProxyEventV2) => {
     return service.CreateUser(event);
-};
+}).use(jsonBodyParser());
 
 export const Login = async(event : APIGatewayProxyEventV2) => {
     return service.UserLogin(event);
