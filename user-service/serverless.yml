@@ -13,13 +13,13 @@ functions:
           path: /Signup
           method: post
   login:
-    handler: app/handler.login
+    handler: app/handler.Login
     events:
       - httpApi:
           path: /login
           method: post
   verify:
-    handler: app/handler.verify
+    handler: app/handler.Verify
     events:
       - httpApi:
           path: /verify

@@ -9,19 +9,68 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Signup = void 0;
+exports.Payment = exports.Cart = exports.Profile = exports.Verify = exports.Login = exports.Signup = void 0;
+const userService_1 = require("./../service/userService");
+const response_1 = require("app/utility/response");
+const service = new userService_1.UserService();
 const Signup = (event) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(event);
-    return {
-        statusCode: 200,
-        headers: {
-            "Access-Control-Allow-Origin": "*",
-        },
-        body: JSON.stringify({
-            message: "Response from Signup",
-            data: {}
-        }),
-    };
+    return service.CreateUser(event);
 });
 exports.Signup = Signup;
+const Login = (event) => __awaiter(void 0, void 0, void 0, function* () {
+    return service.UserLogin(event);
+});
+exports.Login = Login;
+const Verify = (event) => __awaiter(void 0, void 0, void 0, function* () {
+    return service.VerifyUser(event);
+});
+exports.Verify = Verify;
+const Profile = (event) => __awaiter(void 0, void 0, void 0, function* () {
+    const httpMethod = event.requestContext.http.method.toLowerCase();
+    if (httpMethod === "post") {
+        return service.CreateProfile(event);
+    }
+    else if (httpMethod === "put") {
+        return service.EditProfile(event);
+    }
+    else if (httpMethod === "get") {
+        return service.GetProfile(event);
+    }
+    else {
+        return (0, response_1.ErrorResponse)(404, "requested method is not supported!");
+    }
+});
+exports.Profile = Profile;
+const Cart = (event) => __awaiter(void 0, void 0, void 0, function* () {
+    const httpMethod = event.requestContext.http.method.toLowerCase();
+    if (httpMethod === "post") {
+        return service.CreateCart(event);
+    }
+    else if (httpMethod === "put") {
+        return service.UpdateCart(event);
+    }
+    else if (httpMethod === "get") {
+        return service.GetCart(event);
+    }
+    else {
+        return (0, response_1.ErrorResponse)(404, "requested method is not supported!");
+    }
+});
+exports.Cart = Cart;
+const Payment = (event) => __awaiter(void 0, void 0, void 0, function* () {
+    const httpMethod = event.requestContext.http.method.toLowerCase();
+    if (httpMethod === "post") {
+        return service.CreatePayment(event);
+    }
+    else if (httpMethod === "put") {
+        return service.UpdatePayment(event);
+    }
+    else if (httpMethod === "get") {
+        return service.GetPayment(event);
+    }
+    else {
+        return (0, response_1.ErrorResponse)(404, "requested method is not supported!");
+    }
+});
+exports.Payment = Payment;
 //# sourceMappingURL=userHandler.js.map
