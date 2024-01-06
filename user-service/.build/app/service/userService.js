@@ -19,9 +19,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
+const signupInput_1 = require("app/models/dto/signupInput");
 const userRepository_1 = require("./../repository/userRepository");
 const response_1 = require("./../utility/response");
 const tsyringe_1 = require("tsyringe");
+const class_transformer_1 = require("class-transformer");
+const errors_1 = require("./../utility/errors");
+const password_1 = require("./../utility/password");
 let UserService = class UserService {
     constructor(repository) {
         this.repository = repository;
@@ -29,7 +33,20 @@ let UserService = class UserService {
     // User Creation, Login, Validation
     CreateUser(event) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.repository.CreateUserOperation();
+            const input = (0, class_transformer_1.plainToClass)(signupInput_1.SignupInput, event.body);
+            const error = yield (0, errors_1.AppValidationError)(input);
+            if (error) {
+                return (0, response_1.ErrorResponse)(404, error);
+            }
+            const salt = yield (0, password_1.GetSalt)();
+            const hashedPassword = yield (0, password_1.GetHashedPassword)(input.password, salt);
+            const data = yield this.repository.createAccount({
+                email: input.email,
+                password: hashedPassword,
+                phone: input.phone,
+                userType: "BUYER",
+                salt: salt,
+            });
             return (0, response_1.SuccessResponse)({ message: "response from CreateUser" });
         });
     }
