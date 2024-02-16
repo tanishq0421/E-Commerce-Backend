@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,15 +7,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.SignupInput = void 0;
-const loginInput_1 = require("./loginInput");
-const class_validator_1 = require("class-validator");
-class SignupInput extends loginInput_1.LoginInput {
+import { LoginInput } from "./loginInput";
+import { Length } from "class-validator";
+export class SignupInput extends LoginInput {
 }
-exports.SignupInput = SignupInput;
 __decorate([
-    (0, class_validator_1.Length)(10, 13),
+    Length(10, 13),
     __metadata("design:type", String)
 ], SignupInput.prototype, "phone", void 0);
 //# sourceMappingURL=signupInput.js.map

@@ -1,1 +1,1 @@
-{"version":3,"file":"loginInput.js","sourceRoot":"","sources":["../../../../app/models/dto/loginInput.ts"],"names":[],"mappings":";;;;;;;;;;;;AAAA,qDAAkD;AAElD,MAAa,UAAU;CAKtB;AALD,gCAKC;AAHG;IADC,IAAA,yBAAO,GAAE;;yCACK;AAEf;IADC,IAAA,wBAAM,EAAC,CAAC,EAAE,EAAE,CAAC;;4CACI"}
+{"version":3,"file":"loginInput.js","sourceRoot":"","sources":["../../../../app/models/dto/loginInput.ts"],"names":[],"mappings":";;;;;;;;;AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,EAAE,MAAM,iBAAiB,CAAC;AAElD,MAAM,OAAO,UAAU;CAKtB;AAHG;IADC,OAAO,EAAE;;yCACK;AAEf;IADC,MAAM,CAAC,CAAC,EAAE,EAAE,CAAC;;4CACI"}

@@ -2,8 +2,8 @@ import { APIGatewayProxyEventV2 } from "aws-lambda";
 import { container } from "tsyringe";
 import { UserService } from "./../service/userService";
 import { ErrorResponse } from "./../utility/response";
-import middy from "@middy/core";
 import jsonBodyParser from "@middy/http-json-body-parser";
+import middy from "@middy/core";
 
 const service = container.resolve(UserService);
 

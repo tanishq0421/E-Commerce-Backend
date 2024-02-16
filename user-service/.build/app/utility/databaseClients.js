@@ -7,14 +7,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { validate } from "class-validator";
-export const AppValidationError = (input) => __awaiter(void 0, void 0, void 0, function* () {
-    const error = yield validate(input, {
-        ValidationError: { target: true },
+import { Client } from "pg";
+export const DBClient = () => __awaiter(void 0, void 0, void 0, function* () {
+    return new Client({
+        host: `${process.env.DB_HOST}`,
+        user: `${process.env.DB_USER}`,
+        database: `${process.env.DB_NAME}`,
+        password: `${process.env.DB_PASSWORD}`,
+        port: parseInt(process.env.DB_PORT)
     });
-    if (error.length) {
-        return error;
-    }
-    return false;
 });
-//# sourceMappingURL=errors.js.map
+//# sourceMappingURL=databaseClients.js.map
