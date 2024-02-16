@@ -4,7 +4,7 @@ frameworkVersion: "3"
 provider:
   name: aws
   runtime: nodejs20.x
-  versionFunction : false
+  versionFunctions : false
   stage : "dev"
   region : ap-south-1
   httpApi :
@@ -15,7 +15,7 @@ functions:
     handler: app/handler.Signup
     events:
       - httpApi:
-          path: /Signup
+          path: /signup
           method: post
   login:
     handler: app/handler.Login
@@ -53,7 +53,7 @@ functions:
       - httpApi:
           path: /cart
           method: get
-  pay:
+  payment:
     handler: app/handler.Payment
     events:
       - httpApi:

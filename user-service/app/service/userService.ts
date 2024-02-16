@@ -1,4 +1,4 @@
-import { SignupInput } from "app/models/dto/signupInput";
+import { SignupInput } from "./../models/dto/signupInput";
 import { UserRepository } from "./../repository/userRepository";
 import { ErrorResponse, SuccessResponse } from "./../utility/response";
 import { APIGatewayProxyEventV2 } from "aws-lambda";
@@ -16,21 +16,26 @@ export class UserService {
 
   // User Creation, Login, Validation
   async CreateUser(event: APIGatewayProxyEventV2) {
-    const input = plainToClass(SignupInput, event.body);
-    const error = await AppValidationError(input);
-    if (error) {
-      return ErrorResponse(404, error);
+    try {
+      const input = plainToClass(SignupInput, event.body);
+      const error = await AppValidationError(input);
+      if (error) {
+        return ErrorResponse(404, error);
+      }
+      const salt = await GetSalt();
+      const hashedPassword = await GetHashedPassword(input.password, salt);
+      const data = await this.repository.createAccount({
+        email: input.email,
+        password: hashedPassword,
+        phone: input.phone,
+        userType: "BUYER",
+        salt: salt,
+      });
+      return SuccessResponse(data);
+    } catch (error) {
+      console.error(error);
+      return ErrorResponse(500, error);
     }
-    const salt = await GetSalt();
-    const hashedPassword = await GetHashedPassword(input.password, salt);
-    const data = await this.repository.createAccount({
-        email : input.email,
-        password : hashedPassword,
-        phone : input.phone,
-        userType : "BUYER",
-        salt : salt,
-    });
-    return SuccessResponse({ message: "response from CreateUser" });
   }
 
   async UserLogin(event: APIGatewayProxyEventV2) {
