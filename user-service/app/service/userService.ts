@@ -10,8 +10,10 @@ import {
   GetHashedPassword,
   ValidatePassword,
   GetToken,
+  VerifyToken,
 } from "./../utility/password";
 import { LoginInput } from "./../models/dto/loginInput";
+import { GenerateAccessCode, SendVerificationToken } from "./../utility/notification";
 
 @autoInjectable()
 export class UserService {
@@ -65,6 +67,25 @@ export class UserService {
       const token = GetToken(data);
       return SuccessResponse({ token });
     } catch (error: any) {
+      console.error(error);
+      return ErrorResponse(500, error);
+    }
+  }
+
+  async GetVerificationToken(event : APIGatewayProxyEventV2){
+    try{
+      const token = event.headers.authorization;
+      const payload = await VerifyToken(token);
+      if(!payload){
+        throw new Error("Payload not found");
+      }
+      const {code, expiry} = GenerateAccessCode();
+      const response = SendVerificationToken(code, payload.phone);
+      // save on db to confirm verification.
+      return SuccessResponse({
+        message : "verification code is sent to your registered mobile number"
+      });
+    }catch(error : any){
       console.error(error);
       return ErrorResponse(500, error);
     }
