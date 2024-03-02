@@ -5,5 +5,6 @@ CREATE TABLE "users" (
     "password" varchar NOT NULL,
     "salt" varchar NOT NULL,
     "user_type" varchar NOT NULL,
-    "created_at" timestamptz NOT NULL DEFAULT (now())
+    "created_At" timestamptz NOT NULL DEFAULT (now())
+    "updated_At" timestamptz NOT NULL DEFAULT (now())
 );

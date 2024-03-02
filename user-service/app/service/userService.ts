@@ -5,7 +5,13 @@ import { APIGatewayProxyEventV2 } from "aws-lambda";
 import { autoInjectable } from "tsyringe";
 import { plainToClass } from "class-transformer";
 import { AppValidationError } from "./../utility/errors";
-import { GetSalt, GetHashedPassword } from "./../utility/password";
+import {
+  GetSalt,
+  GetHashedPassword,
+  ValidatePassword,
+  GetToken,
+} from "./../utility/password";
+import { LoginInput } from "./../models/dto/loginInput";
 
 @autoInjectable()
 export class UserService {
@@ -22,6 +28,7 @@ export class UserService {
       if (error) {
         return ErrorResponse(404, error);
       }
+
       const salt = await GetSalt();
       const hashedPassword = await GetHashedPassword(input.password, salt);
       const data = await this.repository.createAccount({
@@ -31,15 +38,36 @@ export class UserService {
         userType: "BUYER",
         salt: salt,
       });
+
       return SuccessResponse(data);
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
       return ErrorResponse(500, error);
     }
   }
 
   async UserLogin(event: APIGatewayProxyEventV2) {
-    return SuccessResponse({ message: "response from UserLogin" });
+    try {
+      const input = plainToClass(LoginInput, event.body);
+      const error = await AppValidationError(input);
+      if (error) {
+        return ErrorResponse(404, error);
+      }
+      const data = await this.repository.findAccount(input.email);
+      const verified = await ValidatePassword(
+        input.password,
+        data.password,
+        data.salt
+      );
+      if (!verified) {
+        throw new Error("password doesn't match");
+      }
+      const token = GetToken(data);
+      return SuccessResponse({ token });
+    } catch (error: any) {
+      console.error(error);
+      return ErrorResponse(500, error);
+    }
   }
 
   async VerifyUser(event: APIGatewayProxyEventV2) {
