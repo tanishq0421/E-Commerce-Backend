@@ -1,8 +1,8 @@
 start_db:
-	docker compose up -d
+	sudo docker compose up -d
 
 stop_db:
-	docker compose down
+	sudo docker compose down
 
 server:
 	yarn run dev

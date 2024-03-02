@@ -23,5 +23,18 @@ export class UserRepository {
             }
         });
     }
+    findAccount(email) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const client = yield DBClient();
+            yield client.connect();
+            const queryString = "SELECT user_id, email, password, phone, salt FROM users WHERE email = $1";
+            const values = [email];
+            const result = yield client.query(queryString, values);
+            if (result.rowCount < 1) {
+                throw new Error("User doesn't exist with provided email id");
+            }
+            return result.rows[0];
+        });
+    }
 }
 //# sourceMappingURL=userRepository.js.map

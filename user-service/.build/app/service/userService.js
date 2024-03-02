@@ -23,6 +23,7 @@ import { autoInjectable } from "tsyringe";
 import { plainToClass } from "class-transformer";
 import { AppValidationError } from "./../utility/errors";
 import { GetSalt, GetHashedPassword } from "./../utility/password";
+import { LoginInput } from "./../models/dto/loginInput";
 let UserService = class UserService {
     constructor(repository) {
         this.repository = repository;
@@ -55,7 +56,19 @@ let UserService = class UserService {
     }
     UserLogin(event) {
         return __awaiter(this, void 0, void 0, function* () {
-            return SuccessResponse({ message: "response from UserLogin" });
+            try {
+                const input = plainToClass(LoginInput, event.body);
+                const error = yield AppValidationError(input);
+                if (error) {
+                    return ErrorResponse(404, error);
+                }
+                const data = yield this.repository.findAccount(input.email);
+                return SuccessResponse({ message: "response from UserLogin" });
+            }
+            catch (error) {
+                console.error(error);
+                return ErrorResponse(500, error);
+            }
         });
     }
     VerifyUser(event) {

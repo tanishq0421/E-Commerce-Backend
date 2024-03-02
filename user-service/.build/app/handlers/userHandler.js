@@ -16,9 +16,9 @@ const service = container.resolve(UserService);
 export const Signup = middy((event) => {
     return service.CreateUser(event);
 }).use(jsonBodyParser());
-export const Login = (event) => __awaiter(void 0, void 0, void 0, function* () {
+export const Login = middy((event) => {
     return service.UserLogin(event);
-});
+}).use(jsonBodyParser());
 export const Verify = (event) => __awaiter(void 0, void 0, void 0, function* () {
     return service.VerifyUser(event);
 });
