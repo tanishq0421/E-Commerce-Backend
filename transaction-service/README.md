@@ -1,8 +1,6 @@
-# Welcome to your CDK TypeScript project
+# Transaction-Service
 
-This is a blank project for CDK development with TypeScript.
-
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+ThThe Transaction Service handles all financial transactions, including payments and order processing. It utilizes a SQL database for secure and reliable management of user transaction data, ensuring consistency and accuracy. Developed with Node.js and TypeScript, the service ensures seamless communication with other microservices, supporting smooth payment and order workflows in the platform.
 
 ## Useful commands
 
