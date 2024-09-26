@@ -10,6 +10,5 @@ export const AppValidationError = async (
   if (error.length) {
     return error;
   }
-
   return false;
 };

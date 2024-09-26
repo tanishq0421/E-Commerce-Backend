@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "ESNext",
+    "module": "CommonJS",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "target": "ES6",
@@ -14,7 +14,6 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
   },
-
   "include": ["app/**/*", "*.ts"],
-  "exclude" : ["node_modules", "package-lock.json"]
+  "exclude": ["node_modules"]
 }

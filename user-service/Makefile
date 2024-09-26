@@ -1,10 +1,19 @@
 start_db:
-	sudo docker compose up -d
+	docker compose up -d
 
 stop_db:
-	sudo docker compose down
+	docker compose down
+
+migrate:
+	db-migrate up -e dev
+
+migrate-down:
+	db-migrate down
+
+create_migration:
+	db-migrate create $(n) --sql-file
 
 server:
 	yarn run dev
 
-.PHONEY: start_db stop_db server
+.PHONEY: start_db stop_db server migrate migrate-down create_migration
