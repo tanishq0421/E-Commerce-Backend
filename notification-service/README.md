@@ -1,8 +1,6 @@
-# Welcome to your CDK TypeScript project
+# Notification Service
 
-This is a blank project for CDK development with TypeScript.
-
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+The Notification Service handles the delivery of email notifications within the e-commerce platform. Built with Node.js and TypeScript, it leverages AWS SES for sending emails and AWS SNS for push notifications. It integrates with AWS SQS to queue and manage messages asynchronously, ensuring reliable and timely delivery of notifications across the platform.
 
 ## Useful commands
 
