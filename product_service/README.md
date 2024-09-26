@@ -1,8 +1,6 @@
-# Welcome to your CDK TypeScript project
+# Product-Service
 
-This is a blank project for CDK development with TypeScript.
-
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+The Product Service manages all product-related operations in the e-commerce platform. It uses MongoDB for efficient handling of product data and supports functionalities such as product creation, updates, and deletion. Built with Node.js and TypeScript, the service integrates with AWS S3 for scalable storage of product images and other media, ensuring seamless product management across the system.
 
 ## Useful commands
 
