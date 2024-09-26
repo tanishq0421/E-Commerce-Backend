@@ -1,18 +1,6 @@
-<!--
-title: 'User Micro-Service'
-description: 'This project is a part of NodeJS Microservice with Serverless Masterclass. User Service is responsible all the user faced functionality as we discussed on the system design episode. I will be happy if leave a star to this repository to help others to find this resource.'
-layout: Doc
-framework: v3
-platform: AWS
-language: nodeJS
-authorLink: 'https://github.com/codergogoi'
-authorName: 'Code With Jay'
-authorAvatar: ''
--->
+# User Service
 
-# User Microservice - [NodeJS Microservice with Serverless]
-
-This project is a part of NodeJS Microservice with Serverless Masterclass. User Service is responsible all the user faced functionality as we discussed on the system design episode. I will be happy if leave a star to this repository to help others to find this resource.
+The User Service manages user authentication, account creation, and shopping cart functionalities within the platform. It securely handles user data using a SQL database and supports user registration, login, and profile management. The service is responsible for creating and maintaining shopping carts, enabling users to add and manage products. Additionally, it handles payment processing and integrates with external payment gateways. To facilitate efficient communication with the Product Service, the User Service leverages AWS SQS for message queuing, ensuring reliable and asynchronous updates to product availability and cart contents.
 
 ## Installation Guide
 
